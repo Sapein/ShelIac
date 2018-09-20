@@ -2,22 +2,41 @@
 
 set -eu
 
+SheliacCore_Server() {
+    server_address="${1}"
+    if [ -z ${3+x} ]
+    then
+        server_port="${2}"
+        server_var="${3}"
+    else
+        server_port=23
+        server_var="${2}"
+    fi
+
+    SheliacCore_fModuleAttemptConnection "${server_address}" "${server_port}"
+    SheliacCore_fModuleGetConnection "${server_address}" "${server_port}" "${SheliacCore_ReturnVal}"
+    eval "${server_var}"="${SheliacCore_ReturnVal}"
+}
+
 SheliacCore_Install() {
     server="$1"
     package="$2"
     SheliacCore_pModuleInstall "$server" "$package"
+    SheliacCore_ReturnVal="${SheliacCore_ReturnVal}"
 }
 
 SheliacCore_Remove() {
     server="$1"
     package="$2"
     SheliacCore_pModuleRemove "$server" "$package"
+    SheliacCore_ReturnVal="${SheliacCore_ReturnVal}"
 }
 
 SheliacCore_Update() {
     server="$1"
     package="$2"
     SheliacCore_pModuleUpdate "$server" "$package"
+    SheliacCore_ReturnVal="${SheliacCore_ReturnVal}"
 }
 
 SheliacCore_ScriptTranslate() {
@@ -74,6 +93,9 @@ SheliacCore_ScriptTranslate() {
     sed 's/update/SheliacCore_Update/g' "${_sh_trans}" > "${_temporary_file}.sht"
     mv "${_temporary_file}.sht" "${_sh_trans}"
 
+    sed 's/server/SheliacCore_Server/g' "${_sh_trans}" > "${_temporary_file}.sht"
+    mv "${_temporary_file}.sht" "${_sh_trans}"
+
     #Finish Translation
     printf "#!/bin/sh\n" > "${_sh_output}"
     cat "${_sh_trans}" >> "${_sh_output}"
@@ -88,5 +110,3 @@ SheliacCore_ScriptTranslate() {
 SheliacCore_ScriptRun() {
     true
 }
-
-SheliacCore_ScriptTranslate "./test_script.shs" "test_script"
