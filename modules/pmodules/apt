@@ -1,0 +1,26 @@
+#!/bin/sh
+
+apt_install(){
+    pack="$1"
+    Sheliac_pRetval="apt-get install $1"
+}
+
+apt_remove(){
+    pack="$1"
+    Sheliac_pRetval="apt-get remove $1"
+}
+
+apt_update(){
+    pack="$1"
+    Sheliac_pRetval="apt-get upgrade $1"
+}
+
+apt_setup(){
+    Sheliac_pRetval=$(true)
+}
+
+apt_canrun(){
+    Sheliac_pRetval=$(true)
+}
+
+apt_setup
