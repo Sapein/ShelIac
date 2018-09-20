@@ -36,7 +36,8 @@ SheliacCore_GetpModules(){
 SheliacCore_pModuleInstall(){
     server="$1"
     package="$2"
-    for $module in $_SheliacCore_pModules
+    IFS=$':\n\t'
+    for module in $_SheliacCore_pModules
     do
         "${module}"_canrun "$server"
         if [ "$Sheliac_pRetval" -eq $(true) ]
@@ -52,20 +53,42 @@ SheliacCore_pModuleInstall(){
             else
                 SheliacCore_ReturnVal="${Sheliac_pRetval}"
             fi
+            break
         fi
     done
+    IFS="${_SheliacCore_pModuleIFS}"
 }
 
 SheliacCore_pModuleRemove(){
     server="$1"
     package="$2"
-    for $module in $_SheliacCore_pModules
+    IFS=$':\n\t'
+    for module in $_SheliacCore_pModules
     do
         "${module}"_canrun "$server"
         if [ "$Sheliac_pRetval" -eq $(true) ]
         then
             "${module}"_remove "${package}"
             SheliacCore_ReturnVal="${Sheliac_pRetval}"
+            break
         fi
     done
+    IFS="${_SheliacCore_pModuleIFS}"
+}
+
+SheliacCore_pModuleUpdate(){
+    server="$1"
+    package="$2"
+    IFS=$':\n\t'
+    for module in $_SheliacCore_pModules
+    do
+        "${module}"_canrun "$server"
+        if [ "$Sheliac_pRetval" -eq $(true) ]
+        then
+            "${module}"_update "${package}"
+            SheliacCore_ReturnVal="${Sheliac_pRetval}"
+            break
+        fi
+    done
+    IFS="${_SheliacCore_pModuleIFS}"
 }
