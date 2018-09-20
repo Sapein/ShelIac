@@ -1,18 +1,19 @@
 #!/bin/sh
 
 apt_install(){
-    pack="$1"
-    Sheliac_pRetval="apt-get install $1"
+    server="$1"
+    pack="$2"
+    Sheliac_pRetval="${server} apt-get install ${pack}"
 }
 
 apt_remove(){
     pack="$1"
-    Sheliac_pRetval="apt-get remove $1"
+    Sheliac_pRetval="${server} apt-get remove ${pack}"
 }
 
 apt_update(){
     pack="$1"
-    Sheliac_pRetval="apt-get upgrade $1"
+    Sheliac_pRetval="${server} apt-get upgrade ${pack}"
 }
 
 apt_setup(){
@@ -22,5 +23,3 @@ apt_setup(){
 apt_canrun(){
     Sheliac_pRetval=$(true)
 }
-
-apt_setup

@@ -19,19 +19,20 @@ SheliacCore_ClearfModuleLocation(){
 }
 
 SheliacCore_LoadfModules(){
-    IFS=$':\n\t'
+    IFS=$':\n'
     for location in $_SheliacCore_fModuleLocations
     do
-        for script in $location
+        for script in $(ls "${location}")
         do
-            . "$script"
+            . "${location}"/"${script}"
             "${script}"_setup
-            if [ "${_SheliacCore_fModuleDesc}" == "Conn" ]
+
+            if [ "${_SheliacCore_fModuleDesc}" = "Conn" ]
             then
-                _SheliacCore_fModules_Conn="${_SheliacCore_fModules_Conn}":"${script}"
-            elif [ "${_SheliacCore_fModuleDesc}" == "Lang" ]
+                _SheliacCore_fModules_Conn="${script}":"${_SheliacCore_fModules_Conn}"
+            elif [ "${_SheliacCore_fModuleDesc}" = "Lang" ]
             then
-                _SheliacCore_fModules_Lang="${_SheliacCore_fModules_Lang}":"${script}"
+                _SheliacCore_fModules_Lang="${script}":"${_SheliacCore_fModules_Lang}"
             fi
         done
     done
@@ -49,10 +50,12 @@ SheliacCore_fModuleGetConnection() {
 SheliacCore_fModuleAttemptConnection() {
     server="$1"
     attempt_port="$2"
-    IFS=$':\n\t'
+    IFS=$':\n'
     for fModule in $_SheliacCore_fModules_Conn
     do
+        IFS=$''
         "${fModule}"_canConnect "${server}" "${attempt_port}"
+        IFS=$':\n'
         if [ "${Sheliac_fRetval}" -eq $(true) ]
         then
             SheliacCore_ReturnVal="${fModule}"

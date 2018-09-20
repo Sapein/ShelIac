@@ -8,7 +8,7 @@ _SheliacCore_pModules=""
 _SheliacCore_pModuleLocations=""
 
 SheliacCore_AddpModuleLocation(){
-    _SheliacCore_pModuleLocations="${_SheliacCore_pModuleLocations}":"$1"
+    _SheliacCore_pModuleLocations="$1":"${_SheliacCore_pModuleLocations}"
     _SheliacCore_pModuleLocations=$(printf "$_SheliacCore_pModuleLocations" |  sed s/^://)
 }
 
@@ -17,13 +17,14 @@ SheliacCore_ClearpModuleLocation(){
 }
 
 SheliacCore_LoadpModules(){
-    IFS=$':\n\t'
+    IFS=$':\n'
     for location in $_SheliacCore_pModuleLocations
     do
-        for script in "$location"/*
+        for script in $(ls "${location}")
         do
-            . "$script"
-            _SheliacCore_pModules="${_SheliacCore_pModules}":"${script}"
+            . "${location}"/"${script}"
+            "${script}"_setup
+            _SheliacCore_pModules="${script}":"${_SheliacCore_pModules}"
         done
     done
     IFS="${_SheliacCore_pModuleIFS}"
@@ -36,16 +37,16 @@ SheliacCore_GetpModules(){
 SheliacCore_pModuleInstall(){
     server="$1"
     package="$2"
-    IFS=$':\n\t'
+    IFS=$':\n'
     for module in $_SheliacCore_pModules
     do
-        "${module}"_canrun "$server"
+        "${module}"_canrun "${server}"
         if [ "$Sheliac_pRetval" -eq $(true) ]
         then
-            "${module}"_install "${package}"
+            "${module}"_install "${server}" "${package}"
             if [ "$Sheliac_pRetval" == "" ]
             then
-                "${module}"_update "${package}"
+                "${module}"_update "${server}" "${package}"
                 if [ "${Sheliac_pRetval}" == "" ]
                 then
                     SheliacCore_ReturnVal=""
@@ -62,7 +63,7 @@ SheliacCore_pModuleInstall(){
 SheliacCore_pModuleRemove(){
     server="$1"
     package="$2"
-    IFS=$':\n\t'
+    IFS=$':\n'
     for module in $_SheliacCore_pModules
     do
         "${module}"_canrun "$server"
@@ -79,7 +80,7 @@ SheliacCore_pModuleRemove(){
 SheliacCore_pModuleUpdate(){
     server="$1"
     package="$2"
-    IFS=$':\n\t'
+    IFS=$':\n'
     for module in $_SheliacCore_pModules
     do
         "${module}"_canrun "$server"

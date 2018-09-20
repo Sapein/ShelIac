@@ -1,0 +1,32 @@
+#!/bin/bash
+
+ssh_setup() {
+    _SheliacCore_fModuleDesc="Conn"
+}
+
+ssh_canConnect() {
+    server="$1"
+    port="$2"
+    ssh $server
+    if [ "$?" -eq 0 ]
+    then
+        Sheliac_fRetval=$(true)
+        return 0
+    elif [ "$?" -ne 0 ]
+    then
+        ssh $server $port && Sheliac_fRetval=$(true) || Sheliac_fRetval=$(false)
+        return 1
+    fi
+}
+
+ssh_connect() {
+    server="$1"
+    port="$2"
+    ssh_canConnect "$server" "$port"
+    if [ "$?" -eq 0 ]
+    then
+        Sheliac_fRetval="ssh ${server}"
+    else
+        Sheliac_fRetval="ssh ${server} ${port}"
+    fi
+}
