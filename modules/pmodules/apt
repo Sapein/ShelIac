@@ -1,19 +1,23 @@
 #!/bin/sh
 
+_apt_elevation_program="sudo"
+_apt_elevation_program="su -c"
 apt_install(){
     server="$1"
     pack="$2"
-    Sheliac_pRetval="${server} 'sudo apt-get -y install ${pack}"
+    Sheliac_pRetval="${server} \"${_apt_elevation_program} 'apt-get -y install ${pack}'\""
 }
 
 apt_remove(){
-    pack="$1"
-    Sheliac_pRetval="${server} 'sudo apt-get remove ${pack}"
+    server="$1"
+    pack="$2"
+    Sheliac_pRetval="${server} \"${_apt_elevation_program} 'apt-get -y remove ${pack}'\""
 }
 
 apt_update(){
-    pack="$1"
-    Sheliac_pRetval="${server} 'sudo apt-get upgrade ${pack}"
+    server="$1"
+    pack="$2"
+    Sheliac_pRetval="${server} \"${_apt_elevation_program} 'apt-get -y upgrade ${pack}'\""
 }
 
 apt_setup(){
