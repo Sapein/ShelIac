@@ -30,21 +30,21 @@ SheliacCore_Install() {
     server="$1"
     package="$2"
     SheliacCore_pModuleInstall "$server" "$package"
-    printf "${SheliacCore_ReturnVal};'"
+    printf "${SheliacCore_ReturnVal};"
 }
 
 SheliacCore_Remove() {
     server="$1"
     package="$2"
     SheliacCore_pModuleRemove "$server" "$package"
-    printf "${SheliacCore_ReturnVal};\'"
+    printf "${SheliacCore_ReturnVal};"
 }
 
 SheliacCore_Update() {
     server="$1"
     package="$2"
     SheliacCore_pModuleUpdate "$server" "$package"
-    printf "${SheliacCore_ReturnVal};\'"
+    printf "${SheliacCore_ReturnVal};"
 }
 
 SheliacCore_ScriptTranslate() {
@@ -77,7 +77,7 @@ SheliacCore_ScriptTranslate() {
     unset IFS
     for var in $(cat "${_var_file}")
     do
-        sed 's/[^"=]'"${var}"'[^A-Za-z0-9_]*/ "${'"${var}"'}" /' "${_sh_trans}" > "${_temporary_file}.sht"
+        sed 's/[^"=]'"${var}"'[^A-Za-z0-9_"]*/ "${'"${var}"'}" /' "${_sh_trans}" > "${_temporary_file}.sht"
         mv "${_temporary_file}.sht" "${_sh_trans}"
     done
 
