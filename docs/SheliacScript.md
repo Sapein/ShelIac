@@ -43,7 +43,7 @@ The following functions are built in, along with some documentation of it.
 
   This function takes a server object returned by server() and a package string. It then installs the package onto the server.  This will also update a package if possible. Nothing is returned.
 
-######uninstall(server, package) -> None  
+######remove(server, package) -> None  
   args: server (Server), package (string)  
   returns: Nothing
 
