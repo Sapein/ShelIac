@@ -67,11 +67,13 @@ SheliacCore_pModuleRemove(){
     for module in $_SheliacCore_pModules
     do
         "${module}"_canrun "$server"
-        if [ "$Sheliac_pRetval" -eq $(true) ]
+        if [ "$Sheliac_pRetval" = "0" ]
         then
-            "${module}"_remove "${package}"
+            "${module}"_remove "${server}" "${package}"
             SheliacCore_ReturnVal="${Sheliac_pRetval}"
             break
+        else
+            SheliacCore_ReturnVal=""
         fi
     done
     IFS="${_SheliacCore_pModuleIFS}"
@@ -84,11 +86,13 @@ SheliacCore_pModuleUpdate(){
     for module in $_SheliacCore_pModules
     do
         "${module}"_canrun "$server"
-        if [ "$Sheliac_pRetval" -eq $(true) ]
+        if [ "$Sheliac_pRetval" = "0" ]
         then
-            "${module}"_update "${package}"
+            "${module}"_update "${server}" "${package}"
             SheliacCore_ReturnVal="${Sheliac_pRetval}"
             break
+        else
+            SheliacCore_ReturnVal=""
         fi
     done
     IFS="${_SheliacCore_pModuleIFS}"
