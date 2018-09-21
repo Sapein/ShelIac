@@ -25,8 +25,8 @@ ssh_connect() {
     ssh_canConnect "$server" "$port"
     if [ "$?" = "0" ]
     then
-        Sheliac_fRetval="ssh ${server}"
+        Sheliac_fRetval="ssh -t ${server} --"
     else
-        Sheliac_fRetval="ssh ${server}:${port}"
+        Sheliac_fRetval="ssh -t ${server}:${port} --"
     fi
 }
