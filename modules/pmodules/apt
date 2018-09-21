@@ -3,23 +3,23 @@
 apt_install(){
     server="$1"
     pack="$2"
-    Sheliac_pRetval="${server} apt-get install ${pack}"
+    Sheliac_pRetval="${server} \"sudo apt-get install ${pack}"
 }
 
 apt_remove(){
     pack="$1"
-    Sheliac_pRetval="${server} apt-get remove ${pack}"
+    Sheliac_pRetval="${server} \"sudo apt-get remove ${pack}"
 }
 
 apt_update(){
     pack="$1"
-    Sheliac_pRetval="${server} apt-get upgrade ${pack}"
+    Sheliac_pRetval="${server} \"sudo apt-get upgrade ${pack}"
 }
 
 apt_setup(){
-    Sheliac_pRetval=$(true)
+    Sheliac_pRetval=0
 }
 
 apt_canrun(){
-    Sheliac_pRetval=$(true)
+    Sheliac_pRetval=0
 }

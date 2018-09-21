@@ -56,7 +56,7 @@ SheliacCore_fModuleAttemptConnection() {
         IFS=$''
         "${fModule}"_canConnect "${server}" "${attempt_port}"
         IFS=$':\n'
-        if [ "${Sheliac_fRetval}" -eq $(true) ]
+        if [ "$?" -eq 0 ]
         then
             SheliacCore_ReturnVal="${fModule}"
             return
@@ -64,7 +64,7 @@ SheliacCore_fModuleAttemptConnection() {
             continue
         fi
     done
-    SheliacCore_ReturnVal=0
+    SheliacCore_ReturnVal=$(false)
     IFS="${_SheliacCore_fModuleIFS}"
 }
 

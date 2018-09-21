@@ -43,14 +43,17 @@ run_scripts() {
     IFS=$':\n'
     for script in ${_SheliacScripts}
     do
+        printf "Running ${script}\n"
         SheliacCore_ScriptRun "${script}"
-        # $("${SheliacCore_ReturnVal}")
+        IFS=''
+        eval "${SheliacCore_ReturnVal}"
     done
 }
 
 startup
 get_scripts
-if [ -z ${1+x} ] 
+if [ -z ${1+x} ]
 then
+    printf "Running!\n"
     run_scripts
 fi

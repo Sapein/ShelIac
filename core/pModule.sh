@@ -41,13 +41,13 @@ SheliacCore_pModuleInstall(){
     for module in $_SheliacCore_pModules
     do
         "${module}"_canrun "${server}"
-        if [ "$Sheliac_pRetval" -eq $(true) ]
+        if [ "${Sheliac_pRetval}" = "0" ]
         then
             "${module}"_install "${server}" "${package}"
-            if [ "$Sheliac_pRetval" == "" ]
+            if [ "$Sheliac_pRetval" = "" ]
             then
                 "${module}"_update "${server}" "${package}"
-                if [ "${Sheliac_pRetval}" == "" ]
+                if [ "${Sheliac_pRetval}" = "" ]
                 then
                     SheliacCore_ReturnVal=""
                 fi
