@@ -1,0 +1,4 @@
+s1 := server("sapeint.xyz")
+pack := "git"
+pack2 := pack
+install(s1, pack)

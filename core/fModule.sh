@@ -64,7 +64,7 @@ SheliacCore_fModuleAttemptConnection() {
             continue
         fi
     done
-    SheliacCore_ReturnVal=$(false)
+    SheliacCore_ReturnVal=1
     IFS="${_SheliacCore_fModuleIFS}"
 }
 

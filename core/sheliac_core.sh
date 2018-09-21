@@ -16,15 +16,12 @@ SheliacCore_Server() {
     fi
 
     SheliacCore_fModuleAttemptConnection "${server_address}" "${server_port}"
-    if [ "${SheliacCore_ReturnVal}" != "0" ]
+    if [ "${SheliacCore_ReturnVal}" != "1" ]
     then
         SheliacCore_fModuleGetConnection "${server_address}" "${server_port}" "${SheliacCore_ReturnVal}"
-        printf "${server_var}\n"
-        printf "${SheliacCore_ReturnVal}\n"
-        _tifs="${IFS}"
         eval "${server_var}=\"${SheliacCore_ReturnVal}\""
     else
-        printf "No Connection Available!\n"
+        printf "No Connection Available!\n" 1>&2
         exit 1
     fi
 }
@@ -33,21 +30,21 @@ SheliacCore_Install() {
     server="$1"
     package="$2"
     SheliacCore_pModuleInstall "$server" "$package"
-    printf "${SheliacCore_ReturnVal};\""
+    printf "${SheliacCore_ReturnVal};'"
 }
 
 SheliacCore_Remove() {
     server="$1"
     package="$2"
     SheliacCore_pModuleRemove "$server" "$package"
-    printf "${SheliacCore_ReturnVal};\""
+    printf "${SheliacCore_ReturnVal};\'"
 }
 
 SheliacCore_Update() {
     server="$1"
     package="$2"
     SheliacCore_pModuleUpdate "$server" "$package"
-    printf "${SheliacCore_ReturnVal};\""
+    printf "${SheliacCore_ReturnVal};\'"
 }
 
 SheliacCore_ScriptTranslate() {
@@ -120,7 +117,6 @@ SheliacCore_ScriptTranslate() {
 
 SheliacCore_ScriptRun() {
     script="$1"
-    printf "Executing!!!"
     . "${script}" > .output
     SheliacCore_ReturnVal=$(cat .output)
     rm .output

@@ -3,17 +3,17 @@
 apt_install(){
     server="$1"
     pack="$2"
-    Sheliac_pRetval="${server} \"sudo apt-get install ${pack}"
+    Sheliac_pRetval="${server} 'sudo apt-get -y install ${pack}"
 }
 
 apt_remove(){
     pack="$1"
-    Sheliac_pRetval="${server} \"sudo apt-get remove ${pack}"
+    Sheliac_pRetval="${server} 'sudo apt-get remove ${pack}"
 }
 
 apt_update(){
     pack="$1"
-    Sheliac_pRetval="${server} \"sudo apt-get upgrade ${pack}"
+    Sheliac_pRetval="${server} 'sudo apt-get upgrade ${pack}"
 }
 
 apt_setup(){

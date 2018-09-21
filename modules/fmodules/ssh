@@ -7,14 +7,14 @@ ssh_setup() {
 ssh_canConnect() {
     server="$1"
     port="$2"
-    ssh $server "printf 'test\n'"
+    ssh $server "printf 'test\n'" > /dev/null 2>&1
     if [ "$?" = "0" ]
     then
         Sheliac_fRetval=$(true)
         return 0
     elif [ "$?" != "0" ]
     then
-        ssh "${server}":"${port}" printf 'test\n' && Sheliac_fRetval=$(true) || Sheliac_fRetval=$(false)
+        ssh "${server}":"${port}" "printf 'test\n'" > /dev/null 2>&1 && Sheliac_fRetval=$(true) || Sheliac_fRetval=$(false)
         return 1
     fi
 }
