@@ -1,0 +1,5 @@
+1. Implement Caching.
+2. Be able to have scripts be connected to actual server configuration.
+3. Have configuration file installation.
+4. Implement a Script Extension Capacity in fModules.
+5. Have install/remove/update collect into one command for convience.

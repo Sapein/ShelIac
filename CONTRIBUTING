@@ -1,1 +1,95 @@
-To be Written
+# Contributing.
+
+## Table of Contents  
+1. Introduction  
+2. Development Environment
+3. What belongs in core.
+4. Coding Guidelines and Requirements
+5. Internal Modules
+6. Distributed Modules
+7. Making a Pull Request
+8. Requesting a Feature
+9. Submitting a Bug Report
+10. API Documentation
+
+###1. Introduction  
+[TO BE WRITTEN]
+
+###2. Development Environment  
+To establish a development environment make sure /bin/sh exists and points to a POSIX compatible shell. 
+Make sure you have a POSIX Environment as well.
+
+###3. What Belongs in Core.
+Before we can cover what belongs in the 'core' of ShelIaC we must define what the 'core' is, the 'core' of ShelIaC consists of _ALL_ scripts and code within the core/ folder of the source tree. This also extends to cover the sheliac.sh script in the root of the directory, although it is not entirely 'core'. The main component of the 'core' of the program is near 100% (if not 100%) POSIX Compatibility and Conformance. As such anything in the core must:  
+1. Be able to be implemented *ENTIRELY* with things specified in POSIX.1-2017  
+2. Be part of the domain of the module it is being put into.
+3. Not be better implemented or left to a module.
+
+As such, keep these things in minds when submitting a Feature Request or when submitting a Pull Request, as a feature might be refused in core, but be implemented in a module. In order to make things a bit easier, this section also contains some examples of what does, and does not, belong in the 'core' of Sheliac. Keep in mind this does not apply to any of the modules in `modules/` and there are exceptions for sheliac.sh.
+
+###### What Belongs in Core  
+- Bug fixes of core functionality
+- Extensions to ShelIaC that are ultimately required to implement certain functionality.
+- Parsing of bare 'ShelIaC' files.
+
+###### What Does NOT belong in Core  
+- 'ShelIaC' language extensions that add new features that are not required to be implemented in core.
+- The addition of additional module APIs.
+- Something which is Non-POSIX compliant.
+- Something which requires something like Python 3 or Perl.
+- Something which calls or relies on a module.
+
+###### Exceptions for the `sheliac.sh`  
+Because of the nature of sheliac.sh, it is not required to be 100% core, as such certain exceptions are granted. Generally, sheliac may implement functionality requiring a certain module, although the module must be a 'distributed module' (such as apt and ssh).
+
+###4. Coding Guidelines and Requirements  
+[TO BE WRITTEN]
+
+###5. Internal Modules  
+Internal Modules are the scripts inside of `core/`. These scripts are called 'internal modules' as each script is resposnible for generally one concept or idea. This section details the Internal Modules responsibilties and information pertaining to 'Internal Modules'. 
+
+Each Internal Module has it's own Return Value variable, these variables are not to be set or used outside of the Internal Module or any API that explicitly uses it. For example, fModules use the fModule Return Value variable to return values to the fModule, and the fModule internals may use this value as well, however no internal module access fModule, and an pModule can not use the fModule return value.
+
+The following are internal modules:
+
+- sheliac_core
+- fModule
+- pModule
+
+##### sheliac_core  
+This is the 'sheliac_core' internal module, as such all other internal modules rely on this module to exist, and use this module for coordination, running, and communication. Additionally, the return value for this can be used and access by the `sheliac.sh` script. 
+
+This module can contain many things, but mainly includes 'ShelIaC Script' parsing and builtins, and can call into other 'Internal Modules', such as fModule and pModule. Other modules can not explicitly call sheliac_core at this time.
+
+With ShelIaC script, the core language is intended to be small, as such unless the feature needs to be implemented by the core, it is best implemented by an 'fModule' once that feature is complete.
+
+##### fModule  
+This is the 'fModule' Internal module, this manages all fModules and the fModule API. As such only fModules may call into this Internal Module, and this module is the only module allowed to explicitly call into fModules. This module also deals with the loading and implememtation of fModules.
+
+##### pModule
+This is the 'pModule' Internal module, this manages all pModules and the pModule API. As such only pModules may call into this Internal Module, and this module is the only module allowed to explicitly call into pModules. This module also deals with the loading and implememtation of pModules.
+
+##### Notes  
+sheliac_core might be redesgined in the future, to better separate the Sheliac Script language and the other functions of it.
+
+###6. Distributed Modules  
+Distributed Modules are modules that are distributed in the source tree, and are generally a part of an installation of ShelIaC. These are generally things that you can rely on existing, and are necessary for the script to work. 
+
+If you submit a PR for the creation of a Distributed Module, or for the promotion of a module into a Distributed then please keep in mind it must add the following requirements:
+1. Must not additionally encumber the core project, except for the addition of additional copyrights. 
+2. Must be written in a matter that is 'POSIX' compliant. 
+3. Must be licensed under the MIT License, or must be willing to be licensed under the MIT License for inclusion as a distributed module.
+
+Please note that these restrictions are to make it easier on the core to maintain itself, and to lessen ambiguity and concerns about what applies where.
+
+###7. Making a Pull Request  
+[TO BE WRITTEN]
+
+###8. Requesting a Feature  
+[TO BE WRITTEN]
+
+###9. Submitting a Bug Report  
+[TO BE WRITTEN]
+
+###10. API Documentation 
+[TO BE WRITTEN]
