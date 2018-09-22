@@ -1,0 +1,4 @@
+example := server("example.com")
+package := "git"
+install(example, package)
+install(example, "gnu-smalltalk")
