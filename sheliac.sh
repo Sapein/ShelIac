@@ -14,6 +14,12 @@ core_location="core/"
 . "${core_location}"/pModule.sh
 . "${core_location}"/fModule.sh
 
+$(false) || False="$?"
+$(true) && True="$?"
+
+_shs_norun="${False}"
+_shs_cache="${False}"
+
 startup(){
     IFS=$':\n'
     for location in $pack_module_location
@@ -32,6 +38,7 @@ startup(){
 get_scripts() {
     _SheliacScripts=""
     IFS=$':\n'
+    SheliacCore_ScriptSetup "${_shs_cache}"
     for script in $(ls "${shs_script_location}")
     do
         SheliacCore_ScriptTranslate "${shs_script_location}" "${script}"
@@ -49,9 +56,33 @@ run_scripts() {
     done
 }
 
+parse_options() {
+    OLD_IFS="${IFS}"
+    unset $IFS
+    case opt in $@
+        -h|--help)
+            printf "Usage: sheliac.sh [options]\n"
+            printf " Options:\n"
+            printf "  -c/--cache: Cache SHS files and do not re-parse them otherwise. (Default)\n"
+            printf "  -n/--no_cache: Do not cache SHS files and reparse SHS files.\n"
+            printf "  --no_run: Do not run the parsed SHS files\n"
+            ;;
+        -c|--cache)
+            _shs_cache="${True}"
+            ;;
+        -n|--no_cache)
+            _shs_cache="${False}"
+            ;;
+        --no_run)
+            _shs_norun="${True}"
+            ;;
+    esac
+}
+
+parse_options "$@"
 startup
 get_scripts
-if [ -z ${1+x} ]
+if [ "${_shs_norun}" -ne "${True}" ]
 then
     run_scripts
 fi

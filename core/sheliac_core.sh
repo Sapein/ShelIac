@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -eu
+_SheliacCore_CacheResults=""
 
 SheliacCore_ReturnVal=""
 SheliacCore_Server() {
@@ -56,7 +57,19 @@ SheliacCore_ScriptTranslate() {
     _sh_output="${shs_parse_location}.${_script_name}.sh"
     _temporary_file="${shs_parse_location}.${_script_name}.t"
 
-    cp "${_script_path}"/"${_script_name}" "${_shs_copy}"
+    # Cache Check
+    if [ ! -f "${_shs_copy}" ]
+    then
+        cp "${_script_path}"/"${_script_name}" "${_shs_copy}"
+    else
+        _new_ver=$(cat "${_script_path}"/"${_script_name}")
+        _old_ver=$(cat "${_shs_copy}")
+        if [ "${_new_ver}" = "${_old_ver}" ] && [ "${_SheliacCore_CacheResults}" -eq 0 ]
+            return;
+        fi
+    fi
+
+    #Put in Hook Here - Pre-Processing Phase
 
     awk '$0 ~ /:=/ { FS=":="; print $1; }' "${_shs_copy}" > "${_var_file}"
     sed 's/ $//' "${_var_file}" | awk '!seen[$0]++' > "${_temporary_file}.vars"
@@ -110,9 +123,9 @@ SheliacCore_ScriptTranslate() {
     chmod +x "${_sh_output}"
 
     #Cleanup
-    rm "${_shs_copy}"
     rm "${_sh_trans}"
     rm "${_var_file}"
+    "${_SheliacCore_CacheResults}" || rm "${_shs_copy}"
 }
 
 SheliacCore_ScriptRun() {
@@ -120,4 +133,10 @@ SheliacCore_ScriptRun() {
     . "${script}" > .output
     SheliacCore_ReturnVal=$(cat .output)
     rm .output
+}
+
+SheliacCore_ScriptSetup() {
+    _docache="$1"
+    _SheliacCore_CacheResults="${_docache}"
+    unset $_docache
 }
