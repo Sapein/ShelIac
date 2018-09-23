@@ -1,25 +1,25 @@
 # Contributing.
 
 ## Table of Contents  
-1. Introduction  
-2. Development Environment
-3. What belongs in core.
-4. Coding Guidelines and Requirements
-5. Internal Modules
-6. Distributed Modules
-7. Making a Pull Request
-8. Requesting a Feature
-9. Submitting a Bug Report
-10. API Documentation
+1. [Introduction](#Introduction)
+2. [Development Environment](#Development-Environment)
+3. [What belongs in core.](#Belongs-In-Core)
+4. [Coding Guidelines and Requirements](#coding-style)
+5. [Internal Modules](#Internal-Modules)
+6. [Distributed Modules](#Distributed-Modules)
+7. [Making a Pull Request](#pull-request)
+8. [Requesting a Feature](#feature-request)
+9. [Submitting a Bug Report](#bug-report)
+10. [API Documentation](#api-documentation)
 
-###1. Introduction  
+### 1. Introduction  <a name="Introduction"></a>  
 [TO BE WRITTEN]
 
-###2. Development Environment  
+### 2. Development Environment  <a name="Development-Environment"></a>  
 To establish a development environment make sure /bin/sh exists and points to a POSIX compatible shell. 
 Make sure you have a POSIX Environment as well.
 
-###3. What Belongs in Core.
+### 3. What Belongs in Core. <a name="Belongs-In-Core"></a>  
 Before we can cover what belongs in the 'core' of ShelIaC we must define what the 'core' is, the 'core' of ShelIaC consists of _ALL_ scripts and code within the core/ folder of the source tree. This also extends to cover the sheliac.sh script in the root of the directory, although it is not entirely 'core'. The main component of the 'core' of the program is near 100% (if not 100%) POSIX Compatibility and Conformance. As such anything in the core must:  
 1. Be able to be implemented *ENTIRELY* with things specified in POSIX.1-2017  
 2. Be part of the domain of the module it is being put into.
@@ -42,10 +42,64 @@ As such, keep these things in minds when submitting a Feature Request or when su
 ###### Exceptions for the `sheliac.sh`  
 Because of the nature of sheliac.sh, it is not required to be 100% core, as such certain exceptions are granted. Generally, sheliac may implement functionality requiring a certain module, although the module must be a 'distributed module' (such as apt and ssh).
 
-###4. Coding Guidelines and Requirements  
-[TO BE WRITTEN]
+### 4. Coding Guidelines and Requirements <a name="coding-style"></a>  
+In order to have cohesive code and to make things uniform, a Coding Guideline and Standard does exist, it is detailed here. This section is broken down into sub-sections to discuss other parts of the Guidelines and Standards. 
+###### Table of Contents
+1. General Guidelines
+2. File Naming and Modules
+3. Functions
+4. Variables
 
-###5. Internal Modules  
+###### 1. General Guidelines  
+- Always use POSIX Conventions in core, and use it outside wherever possible. 
+- Set IFS to '\n' or '\n\t'.
+- Set eu. 
+- Use `/bin/sh` for the hashbang line.
+
+###### 2. File Naming and Modules  
+**IN CORE**  
+For modules in `core/`, they must adhere to the following requirements:  
+- The name *MUST* be Descriptive, and *MUST* describe what the module implements.  
+- The name *MUST* end with `.sh` and must be set be executable.   
+- The module *MUST* have a sole purpose. For these purposes see [Section 5 - Internal Modules](#Internal-Modules)  
+- The module *MUST* treat any variables that do not belong to that module as not-existing, except for Return-Variables, which are write-only.
+
+**IN DISTRIBUTED MODULES**  
+For Distributed Modules in `modules/`, the following requirements must be adhered to:  
+- The name *MUST* be descriptive, and it *MUST* describe the connection method, package-manager, or language extension within the name.  
+- The name *MUST* not end with .sh.   
+- The file *MUST* be set to be executable.  
+- The module *MUST* use the official API as defined within the `core/` modules and the relevant documentation.  
+- The module *MUST* have a sole purpose, and *MUST* not implment anything beyond it.  
+- The module *MUST* treat any variable, aside from the Module API's return value and declared special variables, that it does not create or declare as unset and must not set it. For the return value, it must be treated as Write Only.  
+
+###### 3. Functions  
+**IN CORE**  
+For modules in `core/`, they must adhere to the following requirements:  
+- The function name *MUST* be prefixed with the filename of the Module, stripping the `.sh` from the name, which is then followed by an underscore.   
+- The function *MUST* only use the `SheliacCore_ReturnVal` variable to return data.  
+
+**IN DISTRIBUTED MODULES**  
+- The function name *MUST* be prefixed with the entire filename of the Module, followed by an underscore.  
+- The function *MUST* be self-contained, and *MUST* implement the proper arguments.   
+- The function *MUST* only use the Return Variables for the API it implements. Except for where the return value is declared to have meaning in the relevant documentation.  
+
+**GENERAL REQUIREMENTS**  
+- The function name *MUST* describe what it does after stripping the module prefix.  
+- Internal Functions *MUST* be declared with an underscore prefixed before the module name.  
+- The function *MUST* not call any other module's functions.  
+- The function *MUST* assign all arguments to a named variable at the start of the function. Such as `server`.  
+
+###### 4. Variables  
+**IN CORE**   
+- The variable name *MUST* be prefixed with the module name, except for return values. This is then followed by an underscore
+
+**GENERAL REQUIREMENTS**  
+- The variable *MUST* be set at declaration.
+- Variables that are not declared by the module *MUST* be assumed to be non-existant, except for Return variables, or 'special variables'.
+- Module-Internal Variabeles **MUST** be prefixed by an underscore.
+
+### 5. Internal Modules <a name="Internal-Modules"></a>
 Internal Modules are the scripts inside of `core/`. These scripts are called 'internal modules' as each script is resposnible for generally one concept or idea. This section details the Internal Modules responsibilties and information pertaining to 'Internal Modules'. 
 
 Each Internal Module has it's own Return Value variable, these variables are not to be set or used outside of the Internal Module or any API that explicitly uses it. For example, fModules use the fModule Return Value variable to return values to the fModule, and the fModule internals may use this value as well, however no internal module access fModule, and an pModule can not use the fModule return value.
@@ -72,7 +126,7 @@ This is the 'pModule' Internal module, this manages all pModules and the pModule
 ##### Notes  
 sheliac_core might be redesgined in the future, to better separate the Sheliac Script language and the other functions of it.
 
-###6. Distributed Modules  
+### 6. Distributed Modules  <a name="Distributed-Modules"></a>  
 Distributed Modules are modules that are distributed in the source tree, and are generally a part of an installation of ShelIaC. These are generally things that you can rely on existing, and are necessary for the script to work. 
 
 If you submit a PR for the creation of a Distributed Module, or for the promotion of a module into a Distributed then please keep in mind it must add the following requirements:
@@ -82,14 +136,17 @@ If you submit a PR for the creation of a Distributed Module, or for the promotio
 
 Please note that these restrictions are to make it easier on the core to maintain itself, and to lessen ambiguity and concerns about what applies where.
 
-###7. Making a Pull Request  
+### 7. Making a Pull Request <a name="pull-request"></a>   
 [TO BE WRITTEN]
 
-###8. Requesting a Feature  
+### 8. Requesting a Feature <a name="feature-request"></a>   
 [TO BE WRITTEN]
 
-###9. Submitting a Bug Report  
+### 9. Submitting a Bug Report <a name="bug-report"></a>   
 [TO BE WRITTEN]
 
-###10. API Documentation 
-[TO BE WRITTEN]
+### 10. API Documentation <a name="api-documentation"></a>  
+For the proper API Documentation see the relevant files in `docs/`.
+
+fModule API: `fModule_API.md`  
+pModule API: `pModule_API.md`
