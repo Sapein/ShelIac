@@ -77,7 +77,7 @@ Distributed Modules are modules that are distributed in the source tree, and are
 
 If you submit a PR for the creation of a Distributed Module, or for the promotion of a module into a Distributed then please keep in mind it must add the following requirements:
 1. Must not additionally encumber the core project, except for the addition of additional copyrights. 
-2. Must be written in a matter that is 'POSIX' compliant. 
+2. Must be written in a matter that is 'POSIX' compliant, although the features it implements does not have to be entirely POSIX compliant themselves (IE: SSH and apt) 
 3. Must be licensed under the MIT License, or must be willing to be licensed under the MIT License for inclusion as a distributed module.
 
 Please note that these restrictions are to make it easier on the core to maintain itself, and to lessen ambiguity and concerns about what applies where.
