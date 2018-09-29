@@ -4,6 +4,16 @@ set -eu
 _SheliacCore_CacheResults=""
 
 SheliacCore_ReturnVal=""
+_SheliacCore_fModuleConn=""
+SheliacCore_Configure() {
+    server="$1"
+    package="$2"
+    configure_location="$3"
+    install_location="$4"
+    SheliacCore_fModuleConfigure "$server" "$configure_location" "$install_location" "${_SheliacCore_fModuleConn}"
+    printf "${SheliacCore_ReturnVal};"
+}
+
 SheliacCore_Server() {
     server_address="${1}"
     compare="${3:-"N"}"
@@ -19,6 +29,7 @@ SheliacCore_Server() {
     SheliacCore_fModuleAttemptConnection "${server_address}" "${server_port}"
     if [ "${SheliacCore_ReturnVal}" != "1" ]
     then
+        SheliacCore_fModuleConn="${SheliacCore_ReturnVal}"
         SheliacCore_fModuleGetConnection "${server_address}" "${server_port}" "${SheliacCore_ReturnVal}"
         eval "${server_var}=\"${SheliacCore_ReturnVal}\""
     else
@@ -122,6 +133,9 @@ SheliacCore_ScriptTranslate() {
     mv "${_temporary_file}.sht" "${_sh_trans}"
 
     sed 's/server/SheliacCore_Server/g' "${_sh_trans}" > "${_temporary_file}.sht"
+    mv "${_temporary_file}.sht" "${_sh_trans}"
+
+    sed 's/configure/SheliacCore_Configure/g' "${_sh_trans}" > "${_temporary_file}.sht"
     mv "${_temporary_file}.sht" "${_sh_trans}"
 
     #Turn to proper POSIX Shell file

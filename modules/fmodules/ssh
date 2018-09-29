@@ -33,14 +33,7 @@ ssh_connect() {
 
 ssh_configure() {
     server="$1"
-    port="$2"
-    config_location="$3"
-    placement_location="$4"
-    ssh_canConnect "$server" "$port"
-    if [ "$?" = "0" ]
-    then
-        Sheliac_fRetval="cat ${configure_location} | ssh ${server} \"cat > ${placement_location}\""
-    else
-        Sheliac_fRetval="cat ${configure_location} | ssh ${server}:${port} \"cat > ${placement_location}\""
-    fi
+    configure_location="$2"
+    placement_location="$3"
+    Sheliac_fRetval="cat ${configure_location} | ${server} \"cat > ${placement_location}\""
 }

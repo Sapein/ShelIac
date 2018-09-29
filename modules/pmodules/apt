@@ -27,7 +27,3 @@ apt_setup(){
 apt_canrun(){
     Sheliac_pRetval=0
 }
-
-apt_configure(){
-    return 1
-}

@@ -71,3 +71,11 @@ SheliacCore_fModuleAttemptConnection() {
 SheliacCore_GetfModules(){
     SheliacCore_ReturnVal="${_SheliacCore_fModules}"
 }
+
+SheliacCore_fModuleConfigure(){
+    server="$1"
+    configuration_location="$2"
+    installation_location="$3"
+    module="$4"
+    "${module}"_configure "${server}" "${configuration_location}" "${installation_location}"
+}
