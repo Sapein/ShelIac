@@ -31,3 +31,10 @@ This function takes the server passed in and the package name, and then generate
 
 ###### install(server, package_name) -> Sheliac_pRetval:Command(install command); Returns:0  
 This function takes the server passed in and the package name, and then generates and returns the command to install a package. It sets Sheliac_pRetval to the command necessary to install the package (ex: `apt-get install gnu-smalltalk`). The return value is insignificant.
+
+This function takes the server passed in and the package name, and then generates and returns the command to install a package. It sets Sheliac_pRetval to the command necessary to install the package (ex: `apt-get install gnu-smalltalk`). The return value is insignificant.
+
+###### configure(server, package, config_location, placement_location) -> Sheliac_pRetval:Command(configure command); Returns:Bool(0/1)  
+This function takes the server passed in, and the package name, and then generates and returns the command to setup the package through the implemented information. ADDITIONALLY, it may use placement_location to select the proper location, or if placement_location is not passed it, it must return a command to get placement location which will them the used by the proper fModule to install the location.
+
+If a package does *NOT* implement this functionality, it must set the return value to one.

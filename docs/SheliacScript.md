@@ -1,7 +1,6 @@
 #Sheliac Script
 
-###Table of Contents
-1. Introduction
+###Table of Contents 1. Introduction
 2. Explanation of 'Core' vs Non-Core
 3. Variables
 4. Functions
@@ -54,3 +53,9 @@ The following functions are built in, along with some documentation of it.
   returns: Nothing
 
   This function takes a server object returned by server() and a package string. It then updates the package on the server. Nothing is returned.
+
+######configure(server, package, config_location, install_location) -> None  
+  args: server (Server), package (string), config_location (string), install_location (string) 
+  returns: Nothing
+
+  This function takes a server object, returned by server(), a package string, a configuration location string, and an location to put the configuration script. This returns nothing.

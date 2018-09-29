@@ -40,5 +40,10 @@ This function takes the server address (either the IP address or domain name) an
 
 It sets Sheliac_fRetval to the command necessary to connect (ex: `ssh johnsmith@example.com`). The return value is insignificant.
 
+###### configure(server, port, config_location, placement_location) -> Sheliac_fRetval:Command(configure command); Returns:0  
+This function takes the server passed in, along with the configuration location and location to place the file, and then generates and returns the command to install a package. This function can call canConnect under the hood to do port tests, as it follows the same rules as `canConnect()`.
+
+It sets Sheliac_fRetval to the command necessary to install the configuration (ex `cat file | ssh johnsmith@example.com echo > file`). The return value is insignificant.
+
 #### Language Functions  
 There are no Language Functions at this time.
