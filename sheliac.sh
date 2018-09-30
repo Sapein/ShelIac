@@ -10,8 +10,11 @@ shs_script_location="scripts/" #Where the scripts are stored
 pack_module_location="modules/pmodules"
 func_module_location="modules/fmodules"
 core_location="core/"
+#shellcheck source=core/sheliac_core.sh
 . "${core_location}"/sheliac_core.sh
+#shellcheck source=core/pModule.sh
 . "${core_location}"/pModule.sh
+#shellcheck source=core/fModule.sh
 . "${core_location}"/fModule.sh
 
 $(false) || False="$?"
@@ -58,25 +61,28 @@ run_scripts() {
 
 parse_options() {
     OLD_IFS="${IFS}"
-    unset $IFS
-    case opt in $@
-        -h|--help)
-            printf "Usage: sheliac.sh [options]\n"
-            printf " Options:\n"
-            printf "  -c/--cache: Cache SHS files and do not re-parse them otherwise. (Default)\n"
-            printf "  -n/--no_cache: Do not cache SHS files and reparse SHS files.\n"
-            printf "  --no_run: Do not run the parsed SHS files\n"
-            ;;
-        -c|--cache)
-            _shs_cache="${True}"
-            ;;
-        -n|--no_cache)
-            _shs_cache="${False}"
-            ;;
-        --no_run)
-            _shs_norun="${True}"
-            ;;
-    esac
+    unset "IFS"
+    for opt in "$@"
+    do
+        case ${opt} in
+            -h|--help)
+                printf "Usage: sheliac.sh [options]\n"
+                printf " Options:\n"
+                printf "  -c/--cache: Cache SHS files and do not re-parse them otherwise. (Default)\n"
+                printf "  -n/--no_cache: Do not cache SHS files and reparse SHS files.\n"
+                printf "  --no_run: Do not run the parsed SHS files\n"
+                ;;
+            -c|--cache)
+                _shs_cache="${True}"
+                ;;
+            -n|--no_cache)
+                _shs_cache="${False}"
+                ;;
+            --no_run)
+                _shs_norun="${True}"
+                ;;
+        esac
+    done
 }
 
 parse_options "$@"
