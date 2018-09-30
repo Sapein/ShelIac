@@ -74,6 +74,7 @@ SheliacCore_ScriptTranslate() {
         _new_ver=$(cat "${_script_path}"/"${_script_name}")
         _old_ver=$(cat "${_shs_copy}")
         if [ "${_new_ver}" = "${_old_ver}" ] && [ "${_SheliacCore_CacheResults}" -eq 0 ]
+        then
             return 0;
         fi
         rm "${_shs_copy}"
@@ -146,7 +147,8 @@ SheliacCore_ScriptTranslate() {
     #Cleanup
     rm "${_sh_trans}"
     rm "${_var_file}"
-    "${_SheliacCore_CacheResults}" || rm "${_shs_copy}"
+    $(exit "${_SheliacCore_CacheResults}") || rm "${_shs_copy}"
+
 }
 
 SheliacCore_ScriptRun() {
@@ -159,5 +161,5 @@ SheliacCore_ScriptRun() {
 SheliacCore_ScriptSetup() {
     _docache="$1"
     _SheliacCore_CacheResults="${_docache}"
-    unset $_docache
+    unset "_docache"
 }
