@@ -1,12 +1,13 @@
 #!/bin/sh
 
 set -eu
-IFS=$'\n\t'
+IFS='\n\t'
 _SheliacCore_pModuleIFS="${IFS}"
 
 _SheliacCore_pModules=""
 _SheliacCore_pModuleLocations=""
 
+Sheliac_pRetval=""
 SheliacCore_AddpModuleLocation(){
     _SheliacCore_pModuleLocations="$1":"${_SheliacCore_pModuleLocations}"
     _SheliacCore_pModuleLocations=$(printf "$_SheliacCore_pModuleLocations" |  sed s/^://)
@@ -17,7 +18,7 @@ SheliacCore_ClearpModuleLocation(){
 }
 
 SheliacCore_LoadpModules(){
-    IFS=$':\n'
+    IFS=':\n'
     for location in $_SheliacCore_pModuleLocations
     do
         for script in $(ls "${location}")
@@ -38,7 +39,7 @@ SheliacCore_pModuleInstall(){
     SheliacCore_ReturnVal=""
     server="$1"
     package="$2"
-    IFS=$':\n'
+    IFS=':\n'
     for module in $_SheliacCore_pModules
     do
         "${module}"_canRun "${server}"
@@ -70,7 +71,7 @@ SheliacCore_pModuleRemove(){
     SheliacCore_ReturnVal=""
     server="$1"
     package="$2"
-    IFS=$':\n'
+    IFS=':\n'
     for module in $_SheliacCore_pModules
     do
         "${module}"_canRun "$server"
@@ -95,7 +96,7 @@ SheliacCore_pModuleUpdate(){
     SheliacCore_ReturnVal=""
     server="$1"
     package="$2"
-    IFS=$':\n'
+    IFS=':\n'
     for module in $_SheliacCore_pModules
     do
         "${module}"_canRun "$server"

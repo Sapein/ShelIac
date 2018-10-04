@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -eu
-IFS=$'\n\t'
+IFS='\n\t'
 _CoreIFS="${IFS}"
 
 shs_parse_location="./" #Where the files generated during ShellIaC Script go
@@ -24,7 +24,7 @@ _shs_norun="${False}"
 _shs_cache="${False}"
 
 startup(){
-    IFS=$':\n'
+    IFS=':\n'
     for location in $pack_module_location
     do
         SheliacCore_AddpModuleLocation "$location"
@@ -40,7 +40,7 @@ startup(){
 
 get_scripts() {
     _SheliacScripts=""
-    IFS=$':\n'
+    IFS=':\n'
     SheliacCore_ScriptSetup "${_shs_cache}"
     for script in $(ls "${shs_script_location}")
     do
@@ -50,7 +50,7 @@ get_scripts() {
 }
 
 run_scripts() {
-    IFS=$':\n'
+    IFS=':\n'
     for script in ${_SheliacScripts}
     do
         SheliacCore_ScriptRun "${script}"

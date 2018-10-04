@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -eu
-IFS=$'\n\t'
+IFS='\n\t'
 _SheliacCore_fModuleIFS="${IFS}"
 
 _SheliacCore_fModules_Lang=""
@@ -9,6 +9,7 @@ _SheliacCore_fModules_Conn=""
 _SheliacCore_fModuleLocations=""
 
 _SheliacCore_fModuleDesc="Conn"
+Sheliac_fRetval=""
 SheliacCore_AddfModuleLocation(){
     _SheliacCore_fModuleLocations="${_SheliacCore_fModuleLocations}":"$1"
     _SheliacCore_fModuleLocations=$(printf "$_SheliacCore_fModuleLocations" |  sed s/^://)
@@ -19,7 +20,7 @@ SheliacCore_ClearfModuleLocation(){
 }
 
 SheliacCore_LoadfModules(){
-    IFS=$':\n'
+    IFS=':\n'
     for location in $_SheliacCore_fModuleLocations
     do
         for script in $(ls "${location}")
@@ -50,12 +51,12 @@ SheliacCore_fModuleGetConnection() {
 SheliacCore_fModuleAttemptConnection() {
     server="$1"
     attempt_port="$2"
-    IFS=$':\n'
+    IFS=':\n'
     for fModule in $_SheliacCore_fModules_Conn
     do
-        IFS=$''
+        IFS=''
         "${fModule}"_canConnect "${server}" "${attempt_port}"
-        IFS=$':\n'
+        IFS=':\n'
         if [ "$?" -eq 0 ]
         then
             SheliacCore_ReturnVal="${fModule}"
