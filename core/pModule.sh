@@ -35,6 +35,7 @@ SheliacCore_GetpModules(){
 }
 
 SheliacCore_pModuleInstall(){
+    SheliacCore_ReturnVal=""
     server="$1"
     package="$2"
     IFS=$':\n'
@@ -57,10 +58,16 @@ SheliacCore_pModuleInstall(){
             break
         fi
     done
+    if [ "${SheliacCore_ReturnVal}" = "" ]
+    then
+        printf "ERROR: No usable pModule found!\n" 1>&2
+        exit 1
+    fi
     IFS="${_SheliacCore_pModuleIFS}"
 }
 
 SheliacCore_pModuleRemove(){
+    SheliacCore_ReturnVal=""
     server="$1"
     package="$2"
     IFS=$':\n'
@@ -76,10 +83,16 @@ SheliacCore_pModuleRemove(){
             SheliacCore_ReturnVal=""
         fi
     done
+    if [ "${SheliacCore_ReturnVal}" = "" ]
+    then
+        printf "ERROR: No usable pModule found!\n" 1>&2
+        exit 1
+    fi
     IFS="${_SheliacCore_pModuleIFS}"
 }
 
 SheliacCore_pModuleUpdate(){
+    SheliacCore_ReturnVal=""
     server="$1"
     package="$2"
     IFS=$':\n'
@@ -95,5 +108,10 @@ SheliacCore_pModuleUpdate(){
             SheliacCore_ReturnVal=""
         fi
     done
+    if [ "${SheliacCore_ReturnVal}" = "" ]
+    then
+        printf "ERROR: No usable pModule found!\n" 1>&2
+        exit 1
+    fi
     IFS="${_SheliacCore_pModuleIFS}"
 }
