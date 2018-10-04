@@ -27,6 +27,32 @@ Non-Goals:
 - Automatic Server Provisioning.
 - Support Windows in core.
 
+### Example  
+The following is an example of a script used with ShelIaC, with some comments
+```
+#example.shs
+#Declare the server example.com, and connect on port 23
+foo := server("example.com", 23) 
+
+#Create a variable and store it in bar
+bar := "git" 
+
+#Install the package named by "bar" to server "foo"
+install(foo, bar)
+
+#Install the package named 'gnu-smalltalk' to server "foo"
+install(foo, "gnu-smalltalk")
+
+#Remove the package named 'gnus-smalltak' to the server "foo"
+remove(foo, "gnu-smalltalk")
+
+#Update the package git, if possible.
+update(foo, "git")
+
+#Configure the package named "bash", on server "foo", with the configuration file specified, and place it at the location specified.
+configure(foo, "bash", "/home/john/.bashrc", "/home/foo/.bashrc")
+```
+
 ### Contributing  
 See CONTRIBUTING for more information.
 
