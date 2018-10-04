@@ -2,8 +2,7 @@
   ShelIaC (pronounced as shellac ( \shə-ˈlak\ )), is an attempt to write an Infrastructure as Code system in pure POSIX Shell. This makes it able to run on any system that has a POSIX userspace (POSIX.1-2017 XCU) with minimal effort.
 
 ###Requirements  
-1. A POSIX Shell (bash, dash, ash, ect.)  
-2. A POSIX Environment (Specifically: awk, sed, and cat)  
+1. A POSIX Shell (bash, dash, ash, ect.)  2. A POSIX Environment (Specifically: awk, sed, and cat)  
 3. A 'detector' script for the target system (used for installation and management of packages)  
 
 ###How to Use  
@@ -30,6 +29,11 @@ Non-Goals:
 
 ###Contributing  
 See CONTRIBUTING for more information.
+
+###Support  
+If you need help, have questions, or comments, feel free to join #sheliac on the freenode IRC network! Please be advised that it might take some time before someone can respond, so please be patient!
+
+Additionally, if you are #!, or have access to the IRC, the #sheliac channel is on their IRC as well. They are not currently bridged together.
 
 ###Licensing and Copyright  
 See the LICENSE file for more information. 
