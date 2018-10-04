@@ -25,5 +25,13 @@ apt_setup(){
 }
 
 apt_canRun(){
-    Sheliac_pRetval=0
+    server="$1"
+    _rval=0
+    $(eval "${server} 'apt -h > /dev/null 2>&1 && apt-get -h > /dev/null 2>&1'") || _rval="${?}"
+    if [ "${_rval}" = "0" ]
+    then
+        Sheliac_pRetval=0
+    else
+        Sheliac_pRetval=1
+    fi
 }
