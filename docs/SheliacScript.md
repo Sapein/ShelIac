@@ -28,6 +28,8 @@ The spaces are optional, however please note that the `:=` is the assignment ope
 [function_name](arg1, arg2, ..., argn)
 ```
 
+Functions are *NOT* first-class objects, at this time, as such they can not be passed around to other functions, additionally, you *CAN NOT* call a function directly as an argument, you *MUST* store it as a variable.
+
 The following functions are built in, along with some documentation of it. 
 
 ######server(address, port=23) -> Server  
@@ -58,4 +60,4 @@ The following functions are built in, along with some documentation of it.
   args: server (Server), package (string), config_location (string), install_location (string) 
   returns: Nothing
 
-  This function takes a server object, returned by server(), a package string, a configuration location string, and an location to put the configuration script. This returns nothing.
+  This function takes a server object, returned by server(), a package string, a configuration location string, and an location to put the configuration script. This returns nothing. The config_location *MUST* be on the local machine.
