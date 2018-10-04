@@ -7,6 +7,7 @@ ssh_setup() {
 ssh_canConnect() {
     server="$1"
     port="$2"
+    _sshtempval="0"
     ssh $server "printf 'test\n'" > /dev/null 2>&1 || _sshtempval="${?}"; true
     if [ "${_sshtempval}" = "0" ]
     then
