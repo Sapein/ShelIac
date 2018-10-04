@@ -1,7 +1,7 @@
-#fModule API Documentation
+# fModule API Documentation
   With the Functionality Module system existing, and having an API that is somewhat stable, this document exists in order to provide an easier access to information for writing Functionality Modules.
 
-###Table of Conents
+### Table of Contents 
 1. Types of fModules
 2. fModule Variables
 3. Functions

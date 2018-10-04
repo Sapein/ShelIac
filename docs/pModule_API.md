@@ -1,7 +1,7 @@
-#pModule API Documentation
+# pModule API Documentation
   With the Package Module system existing, and having an API that is somewhat stable, this document exists in order to provide an easier access to information for writing Package Modules.
 
-###Table of Conents
+### Table of Contents
 1. pModule Variables
 2. Functions
 
