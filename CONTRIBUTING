@@ -13,7 +13,9 @@
 10. [API Documentation](#api-documentation)
 
 ### 1. Introduction  <a name="Introduction"></a>  
-[TO BE WRITTEN]
+This document aims to introduce people to contributing to ShelIaC as much as possible. As such, this document is the place to start to get information on how to make sure Pull Requests are accepted, and your Bug Reports and Feature Requests are able to be responded to and resolved quickly!
+
+Please keep in mind this document may change overtime, and as such it is recommended you check in on this from time to time.
 
 ### 2. Development Environment  <a name="Development-Environment"></a>  
 To establish a development environment make sure /bin/sh exists and points to a POSIX compatible shell. 
@@ -137,13 +139,104 @@ If you submit a PR for the creation of a Distributed Module, or for the promotio
 Please note that these restrictions are to make it easier on the core to maintain itself, and to lessen ambiguity and concerns about what applies where.
 
 ### 7. Making a Pull Request <a name="pull-request"></a>   
-[TO BE WRITTEN]
+In order to allow Pull Requests to be reviewed and accepted in a timely manner, a general template is provided so that you may have an easier time knowing what is being looked for. Additionally, this includes the steps for submitting a Pull Request.  
+
+Steps to Submitting a Successful PR:  
+1. Make sure the code works.
+2. Run the code through Shellcheck, when possible, in order to ensure that it points out POSIX incompatibilities and issues
+3. Make sure that the [coding conventions](#coding-style) is followed as much as posisble.
+4. Submit the Pull Request with the following information: What it implements/fixes, if it has not been discussed prior some reasoning as to why, a more indepth summary of the changes, and any necessary information to know.
+
+In order to aid with Step 4, the following outline is provided for submitting Pull Requests
+```
+**STATUS:** (Ready/Hold/Development)
+# Description  
+[A summary of the changes, and what is fixed (if anything). List any dependencies or notes required for this change].
+
+[Omit if not a bugfix] Fixes #(ISSUE NUMBER)
+[Omit if not a Feature Request Implementation] Implements #(ISSUE NUMBER)
+
+## Type of Change  
+[Delete what isn't relevant]
+- Bug Fix 
+- New Feature
+- Breaking Change
+- Documentation Update
+- Requires Documentation Update
+
+## Testing  
+**Test Configuration**: 
+* Shell Name:
+* Shell Version:
+* Operating System:
+* Version: 
+```
+
+Note that anything in brackets (`[]`'s) are notes, and are to be removed *BEFORE SUBMITTING*. Additionally anything in Parenthesis (`()`'s) are expected to be replaced with the proper text. Note that Status may be omitted, but without it a PR may be prematurely accepted/rejected.
+
+After a Pull Request is submitted, it will be reviewed and either accepted or rejected. If rejected, an explanation should follow. Please note you may submit a Pull Request either *BY* email, or through git.sapeint.xyz.
 
 ### 8. Requesting a Feature <a name="feature-request"></a>   
-[TO BE WRITTEN]
+Since this is software that is made for others to use, there may be features or things that are desired by others that are not thought about during the normal course of development, as such feature requests will occur. In order for things to go smoothly, and in order to ensure that your ideas get across please follow these guidelines when submitting one:
+
+- Make sure you are clear and conscise.
+- Explain why the feature is needed, or wanted.  
+- If this is a breaking change, then please elaborate on why breaking compatability is a good idea. If you don't know, you can omit this.
+
+Once submitted, it will be reviewed and you can expect debate on it. Please note that you are expected to be able to defend the request to a degree, and you will probably be asked follow-up questions. Additionally, if you want the feature to be included into the Core, please explain *why* this feature belongs in it.
+
+In order to facilitate the submission of Feature Requests, a template is provided here:
+```
+# Feature Description  
+[A Description of the feature]
+
+## Type of Feature  
+[Delete what isn't relevant]
+- Quality of Life
+- Compatibility
+- Other
+- Core
+- API
+- Module
+
+## Background  
+[Explain why you are submitting this request]
+```
+Please note that Feature Requests are also to be used to request a module become a Distributed Module.
 
 ### 9. Submitting a Bug Report <a name="bug-report"></a>   
-[TO BE WRITTEN]
+As this is software, and it is somewhat complex, bugs and errors will occur and may escape unnoticed for some time. As such users may desire to submit Bug Reports, in order to facilitate submission, review, and fixes, as such this section establishes some guidelines, and a template, for submitting a Bug Report. The template does *NOT* need to be followed, but it is recommended to do so.
+
+**Guidelines:**  
+- Be clear when submitting your bug report.
+- Be detailed.
+- Include your system that you ran it on, and the target system (if relevant).
+
+```
+# Information  
+**OS:** 
+**Shell Name:**
+**Shell Version:**
+**Target Machine OS:**
+**Target Shell:**
+**Target Shell Version:**
+**ShelIaC Version:**
+**Modules in Use:**
+**Issue:** [short issue description]
+
+# Steps to Reproduce
+[Put steps to reproduce issue here]
+
+# Example ShelIaC Script
+[Put a copy of an example ShelIaC Script that can reproduce the issue, if possible. If not relevant exclude this]
+
+# Error Output  
+[Put the error output in a code block, if any is produced].
+
+# Additional Information
+[Include more information on the issue.]
+```
+Please note that you can exclude the Target informatin (Target Machine OS, Target Shell, and Target Shell Version). If you are using only Distributed Modules, you can just state `Distributed Modules Only` or just `Distributed Modules`. If you are not using *ANY* Distributed Modules, please state such. If no error output is generated you are expected to remove it.
 
 ### 10. API Documentation <a name="api-documentation"></a>  
 For the proper API Documentation see the relevant files in `docs/`.
