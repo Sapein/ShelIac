@@ -1,5 +1,5 @@
 # ShelIaC
-  ShelIaC (pronounced as shellac ( \shə-ˈlak\ )), is an attempt to write an Infrastructure as Code system in pure POSIX Shell. This makes it able to run on any system that has a POSIX userspace (POSIX.1-2017 XCU) with minimal effort.
+  ShelIaC (pronounced as shellac ( \shə-ˈlak\ )), is an attempt to write an _Infrastructure as Code_ system in pure POSIX Shell. This makes it able to run on any system that has a POSIX userspace (POSIX.1-2017 XCU) with minimal effort.
 
 ### Requirements  
 1. A POSIX Shell (bash, dash, ash, ect.)  2. A POSIX Environment (Specifically: awk, sed, and cat)  
@@ -103,6 +103,11 @@ Eventually an interface to extend the language will be written, in order to allo
 
 ##### How do I write ShelIaC Script then?  
 See the documentation.
+
+##### What is Infrastructure as Code?  
+Infrastructure as Code is essentially the practice of modeling server configuration, setups, and management within code. Typically in a Domain Specific Language (DSL). 
+
+There is a [Wikipedia Article](https://en.wikipedia.org/wiki/Infrastructure_as_Code) detailing Infrastructure as Code, and there are a myrad of articles (such as [this one](https://hackernoon.com/infrastructure-as-code-tutorial-e0353b530527) and [this one](https://docs.microsoft.com/en-us/azure/devops/learn/what-is-infrastructure-as-code) that go into more detail and even have some tutorials on using the more popular and common programs and services.
 
 ##### Why shouldn't I just use Ansible or another IaC platform?  
 You probably should.
