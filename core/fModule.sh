@@ -69,10 +69,6 @@ SheliacCore_fModuleAttemptConnection() {
     IFS="${_SheliacCore_fModuleIFS}"
 }
 
-SheliacCore_GetfModules(){
-    SheliacCore_ReturnVal="${_SheliacCore_fModules}"
-}
-
 SheliacCore_fModuleConfigure(){
     server="$1"
     configuration_location="$2"

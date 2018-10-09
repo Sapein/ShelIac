@@ -5,6 +5,7 @@ _SheliacCore_CacheResults=""
 
 SheliacCore_ReturnVal=""
 _SheliacCore_fModuleConn=""
+if [ -z ${shs_parse_location+x} ]; then shs_parse_location=""; fi
 SheliacCore_Configure() {
     server="$1"
     package="$2"

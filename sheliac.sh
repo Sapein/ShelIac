@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 set -eu
 IFS='\n\t'
 _CoreIFS="${IFS}"
+SheliacCore_ReturnVal=""
+_sh_output=""
 
 shs_parse_location="./" #Where the files generated during ShellIaC Script go
 shs_script_location="scripts/" #Where the scripts are stored
