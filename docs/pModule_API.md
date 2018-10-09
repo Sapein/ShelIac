@@ -24,7 +24,7 @@ This function takes the a server (returned from the `Sheliac_Server` or the Shel
 This function sets `Sheliac_pRetval` to either 0 (success) or 1 (unable to run). The return value of the function, through the return command, is inconsequential. If it returns 0, then the module will be used, if it returns 1 then it won't be used. This function is called before an attempt to run an action (see `install()`, `update()` and `remove()`).
 
 ###### update(server, package_name) -> Sheliac_pRetval:Command(update command); Returns:0  
-This function takes the server passed in and the package name, and then generates and returns the command to perform an update to a package. It sets Sheliac_pRetval to the command necessary to update the package (ex: `apt-get update gnu-smalltalk`). The return value is insignificant.
+This function takes the server passed in and the package name, and then generates and returns the command to update the package to the latest version on the system. It sets Sheliac_pRetval to the command necessary to update the package (ex: `apt-get upgrade gnu-smalltalk`). The return value is insignificant. A package not on the host machine is not installed by update().
 
 ###### remove(server, package_name) -> Sheliac_pRetval:Command(remove command); Returns:0  
 This function takes the server passed in and the package name, and then generates and returns the command to remove a package. It sets Sheliac_pRetval to the command necessary to remove the package (ex: `apt-get remove gnu-smalltalk`). The return value is insignificant.

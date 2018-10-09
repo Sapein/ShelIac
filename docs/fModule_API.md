@@ -18,7 +18,7 @@ Connction Modules add new ways for ShelIaC to connect to an external server, suc
 
 `Sheliac_fRetval` is the Return Variable for the fModule API, as such almost all data should be stored in here, this should never be read from, only be written to. It is not guarenteed to be set prior to usage in an fModule either.
 
-`_Sheliac_fModule_Desc` is a special, internal variable that is used by the fModule API to determine which type of fModule the module is. The default is set to "Conn", however _ALL_ Modules should set this either in the init function (See Section 3 - Functions) or should set it upon loading. This is a special variable that is only used upon the loading of a module, and is ignored otherwise.
+`_Sheliac_fModule_Desc` is a special, internal variable that is used by the fModule API to determine which type of fModule the module is. *ALL* Function Modules are expected to declare this (preferably in the setup() function (See Section 3 - Functions). This is a special value that is expected to be set to "Conn". 
 
 ## Functions  
   The fModule API requires that each fModule implements a set of functions that are called into and recieve certain variables. Some functions are only required for some fModules, as such this section is divided into three parts - non-typed, connection, and language functions. All functions must be prefixed with the filename of the module, followed by an underscore, and then the name of the function. as such the general function format is `[module_filename]_[function_name]`.
