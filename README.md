@@ -5,16 +5,17 @@
 1. A POSIX Shell (bash, dash, ash, ect.)  2. A POSIX Environment (Specifically: awk, sed, and cat)  
 3. A 'detector' script for the target system (used for installation and management of packages)  
 
-### How to Use  
-1. Obtain a copy of ShelIaC and install it.  
-2. Write a ShelIac Script File, and place it the proper location.  
-3. Run `sheliac.sh`  
+### How to Use and Install
+1. If you have git run: `git clone https://git.sapeint.xyz/Sapeint/ShelIaC.git`.
+2. Run `make install`.
+3. Write a script and place it in the script folder.
+4. Run `sheliac`.
 
 ### Usage Notes  
 - This program requires a POSIX envrionment to run, and uses several features that may not be available in older versions of utilities.
 - Due to certain things being outside of POSIX, additional scripts are required to make this entirely work. These are Pack Modules (pModules) and Functionality Modules (fModules), these must be written in POSIX Shell for it to work.
 - Pack Modules deal with packaging, as such if no Pack Module exists for your system, you have to write one. 
-- Functionality Modules deal with functionality, primarily with connecting to remove hosts. 
+- Functionality Modules deal with functionality, primarily with connecting to remote hosts. 
 
 ### Project Goals  
 Goals:  
